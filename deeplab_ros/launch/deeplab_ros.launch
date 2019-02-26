@@ -1,0 +1,8 @@
+<launch>
+
+  <node pkg="deeplab_ros" type="deeplab_ros.py" name="deeplab_ros" ns="recognition">
+    <remap from="/deeplab/segmented_image" to="/deeplab/segmented_image"/>
+    <remap from="/deeplab/masked_image" to="/deeplab/masked_image"/>
+  </node>
+
+</launch>
