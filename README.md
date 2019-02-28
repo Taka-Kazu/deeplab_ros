@@ -2,24 +2,24 @@
 
 ## Install
 
-cd (YOUR_CATKIN_WORKSPACE)/src
+$ cd (YOUR_CATKIN_WORKSPACE)/src
 
-git clone https://github.com/Taka-Kazu/deeplab_ros
+$ git clone https://github.com/Taka-Kazu/deeplab_ros
 
-cd deeplab_ros
+$ cd deeplab_ros
 
-git submodule update --init --depth=1
+$ git submodule update --init --depth=1
 
 ## Network weight
 place cityscape weight to ./deeplab_ros/scripts/
 
 ## Run
-roslaunch darknet_ros darknet_ros.launch
+$ roslaunch darknet_ros darknet_ros.launch
 
-### published topic
+### subscribied topic
 - /usb_cam/image_raw (sensor_msgs/Image)
 
-### subscribied topic 
+### published topics
 - /deeplab/segmented_image (sensor_msgs/Image)
   - segmentation map only
 - /deeplab/masked_image (sensor_msgs/Image)
