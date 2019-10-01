@@ -246,9 +246,11 @@ class SemanticSegmentation:
       cv_resized_image = np.asarray(resized_image)
       cv_seg_image = np.asarray(seg_image)
       pub_seg_image = CvBridge().cv2_to_imgmsg(seg_image, "rgb8")
+      pub_seg_image.header = data.header
       self.segmented_image_pub.publish(pub_seg_image)
       masked_image = cv2.addWeighted(cv_resized_image, 0.5, cv_seg_image, 0.5, 0)
       pub_masked_image = CvBridge().cv2_to_imgmsg(masked_image, "rgb8")
+      pub_masked_image.header = data.header
       self.masked_image_pub.publish(pub_masked_image)
 
     except CvBridgeError as e:
