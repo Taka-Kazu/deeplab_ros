@@ -235,6 +235,10 @@ class SemanticSegmentation:
     self.segmented_image_pub = rospy.Publisher("/deeplab/segmented_image", RosImage, queue_size=1)
     self.masked_image_pub = rospy.Publisher("/deeplab/masked_image", RosImage, queue_size=1)
 
+    self.use_subscribed_images_stamp = True
+    if rospy.has_param("USE_SUBSCRIBED_IMAGES_STAMP"):
+        self.use_subscribed_images_stamp = rospy.get_param("USE_SUBSCRIBED_IMAGES_STAMP")
+
   def image_callback(self, data):
     try:
       cv_image = CvBridge().imgmsg_to_cv2(data, "bgr8")
@@ -247,10 +251,14 @@ class SemanticSegmentation:
       cv_seg_image = np.asarray(seg_image)
       pub_seg_image = CvBridge().cv2_to_imgmsg(seg_image, "rgb8")
       pub_seg_image.header = data.header
+      if not self.use_subscribed_images_stamp:
+          pub_seg_image.header.stamp = rospy.get_rostime()
       self.segmented_image_pub.publish(pub_seg_image)
       masked_image = cv2.addWeighted(cv_resized_image, 0.5, cv_seg_image, 0.5, 0)
       pub_masked_image = CvBridge().cv2_to_imgmsg(masked_image, "rgb8")
       pub_masked_image.header = data.header
+      if not self.use_subscribed_images_stamp:
+          pub_masked_image.header.stamp = rospy.get_rostime()
       self.masked_image_pub.publish(pub_masked_image)
 
     except CvBridgeError as e:

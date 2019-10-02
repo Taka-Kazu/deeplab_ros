@@ -1,6 +1,10 @@
+<?xml version="1.0"?>
+
 <launch>
+  <arg name="use_subscribed_images_stamp" default="true"/>
 
   <node pkg="deeplab_ros" type="deeplab_ros.py" name="deeplab_ros" ns="recognition">
+    <param name="USE_SUBSCRIBED_IMAGES_STAMP" value="$(arg use_subscribed_images_stamp)"/>
     <remap from="/deeplab/segmented_image" to="/deeplab/segmented_image"/>
     <remap from="/deeplab/masked_image" to="/deeplab/masked_image"/>
     <remap from="/usb_cam/image_raw" to="/usb_cam/image_raw"/>
