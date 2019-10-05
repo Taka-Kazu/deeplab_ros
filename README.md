@@ -14,7 +14,7 @@ $ git submodule update --init --depth=1
 place cityscape weight to ./deeplab_ros/scripts/
 
 ## Run
-$ roslaunch darknet_ros darknet_ros.launch
+$ roslaunch deeplab_ros deeplab_ros.launch
 
 ### subscribied topic
 - /usb_cam/image_raw (sensor_msgs/Image)
