@@ -3,13 +3,16 @@
 
 import rospy
 from sensor_msgs.msg import Image as RosImage
-import cv2
-from cv_bridge import CvBridge, CvBridgeError
 
 import os
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../models/research/deeplab'))
+if sys.version_info[0] is not 2:
+    sys.path.remove('/opt/ros/kinetic/lib/python2.7/dist-packages')
+print(sys.version)
 
+import cv2
+from cv_bridge import CvBridge, CvBridgeError
 from utils import get_dataset_colormap
 
 ###############################
@@ -262,7 +265,7 @@ class SemanticSegmentation:
       self.masked_image_pub.publish(pub_masked_image)
 
     except CvBridgeError as e:
-      print e
+      print(e)
 
   def process(self):
     rospy.init_node('semantic_segmentation', anonymous=True)
